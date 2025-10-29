@@ -29,6 +29,7 @@ resource "azurerm_storage_account" "cpp-sa" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
+  #aktiviert die Statische Website im Storage Account
   static_website {
     index_document     = "index.html"
     error_404_document = "404.html"

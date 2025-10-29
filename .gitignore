@@ -1,0 +1,17 @@
+#damit ich nicht den Fehler mit Git erhalte, dass die Dateien die mitgepusht werden zu groß sind
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+crash.log
+terraform.tfvars
+terraform.tfvars.json
+*.tfplan
+
+#Systemdateien
+.DS_Store
+Thumbs.db
+
+#IDE / Editor
+.vscode/
+.idea/
