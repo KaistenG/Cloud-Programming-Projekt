@@ -88,6 +88,6 @@ resource "azurerm_linux_web_app" "cpp-linux-webapp" {
 resource "azurerm_app_service_source_control" "cpp-webapp-deploy" {
   app_id        = azurerm_linux_web_app.cpp-linux-webapp.id
   repo_url      = "https://github.com/KaistenG/Cloud-Programming-Projekt.git" # GitHub-Repo mit index.html + 404.html
-  branch        = "main"
+  branch        = "testbranch"
   use_mercurial = false
 }
