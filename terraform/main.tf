@@ -68,6 +68,8 @@ resource "azurerm_service_plan" "cpp-app-plan" {
   location            = azurerm_resource_group.cpp-rg.location
   os_type             = "Linux"
   sku_name            = "B1"
+
+  worker_count = 3 #3 parallele Instanzen / autoscaling ohne Abo nicht möglich
 }
 # -------------------------
 # Web App
