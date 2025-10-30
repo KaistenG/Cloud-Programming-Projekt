@@ -61,39 +61,32 @@ resource "azurerm_storage_blob" "cpp-blob-error" {
 # -------------------------
 # Service Plan (skalierbare Web App)
 # -------------------------
+
 resource "azurerm_service_plan" "cpp-app-plan" {
-  name                = "cpp-appservice-plan"
-  location            = azurerm_resource_group.cpp-rg.location
+  name                = "cpp-app-plan"
   resource_group_name = azurerm_resource_group.cpp-rg.name
-
-  sku_name = "B1" # Basic B1
-
-  os_type = "Linux"
+  location            = azurerm_resource_group.cpp-rg.location
+  os_type             = "Linux"
+  sku_name            = "B1"
 }
-
 # -------------------------
 # Web App
 # -------------------------
-resource "azurerm_app_service" "cpp-webapp" {
-  name                = "cpp-webapp"
-  location            = azurerm_resource_group.cpp-rg.location
+
+resource "azurerm_linux_web_app" "cpp-linux-webapp" {
+  name                = "cpp-linux-webapp"
   resource_group_name = azurerm_resource_group.cpp-rg.name
-  app_service_plan_id = azurerm_service_plan.cpp-app-plan.id
+  location            = azurerm_service_plan.cpp-app-plan.location
+  service_plan_id     = azurerm_service_plan.cpp-app-plan.id
 
-  site_config {
-    linux_fx_version = "NODE|18-lts"
-  }
-
-  tags = {
-    environment = "dev"
-  }
+  site_config {}
 }
 
 # -------------------------
 # Deployment über GitHub (Source Control)
 # -------------------------
 resource "azurerm_app_service_source_control" "cpp-webapp-deploy" {
-  app_id        = azurerm_app_service.cpp-webapp.id
+  app_id        = azurerm_linux_web_app.cpp-linux-webapp.id
   repo_url      = "https://github.com/KaistenG/Cloud-Programming-Projekt.git" # GitHub-Repo mit index.html + 404.html
   branch        = "main"
   use_mercurial = false
